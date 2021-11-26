@@ -7,70 +7,112 @@
 
 int main(){
     int linha, coluna, dias;
+    int matrizHoje[50][50];
+    int matrizAmanha[50][50];
     printf("linhas e colunas:");
     scanf("%d%d", &linha, &coluna);
     printf("\ndias:");
     scanf("%d", &dias);
-    int matriz[linha][coluna];
     for (int j = 0; j < linha; j++)
     {
          for (int i = 0; i < coluna; i++)
         {
-            scanf("%d",&matriz[j][i]);
+            scanf("%d",&matrizHoje[j][i]);
         }
     }
     for (int a = 0; a < dias; a++)
     {
+        printf("Interacao %d \n",a);
         for (int j = 0; j < linha; j++)
         {
             for (int i = 0; i < coluna; i++)
             {
-                printf("%d",matriz[j][i]);
-                
-                if(j == 0 || i == 0 || j == linha || i == coluna){
-                }else{
-                    int vizinhos[8] = { matriz[j-1][i-1],matriz[j-1][i], matriz[j-1][i+1], matriz[j][i-1], matriz[j][i+1], matriz[j+1][i-1], matriz[j+1][i], matriz[j+1][i+1]};
+                printf("%d",matrizHoje[j][i]);
+                int vizinhos[8]={matrizHoje[j-1][i-1],matrizHoje[j-1][i],matrizHoje[j-1][i+1],matrizHoje[j][i-1],matrizHoje[j][i+1],matrizHoje[j+1][i-1],matrizHoje[j+1][i],matrizHoje[j+1][i+1]};
+                if(j==0 && i==0){
+                    vizinhos[0] = matrizHoje[linha-1][coluna-1];
+                }if(j==0){
+                    vizinhos[1] = matrizHoje[linha-1][i];
+                }if(i==0){
+                    vizinhos[3] = matrizHoje[j][coluna-1];
+                }if(j==linha-1 && i==coluna-1){
+                    vizinhos[7] = matrizHoje[0][0];
+                }if(j==linha-1){
+                    vizinhos[6] = matrizHoje[0][i];
+                }if(i==coluna-1){
+                    vizinhos[4] = matrizHoje[j][0];
+                }if(j==0 && i==coluna-1){
+                    vizinhos[2] = matrizHoje[linha-1][0];
+                }if(j==linha-1 && i==0){
+                    vizinhos[5] = matrizHoje[0][coluna-1];
+                }if(j==0 && i!=coluna-1){
+                    vizinhos[2] = matrizHoje[linha-1][i+1];
+                }if(j!=linha-1 && i==0){
+                    vizinhos[5] = matrizHoje[j+1][coluna-1];
+                }if(j!=0 && j!=linha-1 && i==coluna-1){
+                    vizinhos[2] = matrizHoje[j-1][0];
+                    vizinhos[7] = matrizHoje[j+1][0];
                 }
-
-               
-                printf("teste - %d %d %d %d %d %d %d %d",matriz[j-1][i-1], matriz[j-1][i], matriz[j-1][i+1], matriz[j][i-1], matriz[j][i+1], matriz[j+1][i-1], matriz[j+1][i], matriz[j+1][i+1]);
-                if(matriz[j][i] == 0){
-                    int sum = 0;
-                    for (int e = 0; e < 8; e++)
-                    {
-                        if(vizinhos[e] == 1){
-                            sum++;
+                if(j==linha-1){
+                   // printf("matriz:%d - ",matrizHoje[0][coluna-1]);
+                    //printf("vizinho:%d \n",vizinhos[5]);
+                }      
+                matrizAmanha[j][i] = matrizHoje[j][i];
+                if(matrizHoje[j][i] == 0){
+                    
+                    int soma = 0;
+                    for(int k=0; k<8;k++){
+                        if(vizinhos[k]==1){
+                            soma = soma+1;
+                        }
+                    }    
+                    //printf("sum:%d\n",soma);
+                    if(soma == 2){
+                        //printf("nasceu\n");
+                        matrizAmanha[j][i] = 1; 
+                    }
+                }else if(matrizHoje[j][i] == 1){
+                    for(int k=0; k<8;k++){
+                        if(j==linha-1){
+                           // printf("vizinho:%d \n",vizinhos[k]);
+                        }
+                        if(vizinhos[k]==2){
+                            matrizAmanha[j][i] = 2;
                         }
                     }
-                    if(sum == 2){
-                        matriz[j][i] = 1;
+                    if(j==linha-1){
+                        //printf("j:%d i:%d value:%d\n",j, i, matrizAmanha[j][i]);
+                    }
+                }else if(matrizHoje[j][i] == 2){
+                    int soma = 0;
+                    for(int k=0; k<8;k++){
+                        if(vizinhos[k]==1){
+                            soma = soma+1;
+                        }
+                    }    
+                    if(soma > 1){
+                        matrizAmanha[j][i] = 0; 
+                    }if(soma == 0){           
+                        matrizAmanha[j][i] = 0; 
                     }
                 }
-                else if (matriz[j][i] == 1)
-                {
-                    for (int e = 0; e < 8; e++)
-                    {
-                        
-                        if(vizinhos[e] == 2){
-                            matriz[j][i] == 2;
-                        }
-                    }
-                }else if(matriz[j][i] == 2){
-                    int sum = 0;
-                    for (int e = 0; e < 8; e++)
-                    {
-                        if(vizinhos[e] == 1){
-                            sum++;
-                        }
-                    }
-                    if(sum >= 2 || sum == 0){
-                        matriz[j][i] = 0;
-                    }
+                if(j==linha-1){
+                    //printf("j:%d i:%d value:%d\n",j, i, matrizAmanha[j][i]);
                 }
-           
             }
-            printf("\n");
+            printf("\n"); 
         }
         printf("\n");
+       
+        for (int j = 0; j < linha; j++)
+        {
+            for (int i = 0; i < coluna; i++)
+            {
+                //printf("i:%d j:%d mat:%d\n",j, i ,matrizAmanha[j][i]);
+                matrizHoje[j][i] = matrizAmanha[j][i];
+                matrizAmanha[j][i] = 0; 
+            }
+        }
+       
     }
 }
