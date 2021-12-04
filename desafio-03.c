@@ -84,10 +84,15 @@ int main(){
 
     // Verifica se eh um palindromo
     char senhaInversa[strlen(senha)];
-    int j = strlen(senha);
+    int j = strlen(senha) - 1;
 
     for(int i = 0; i < strlen(senha); i++){
         senhaInversa[j] = senha[i];
+        
+        // Nao sei porque mas nao quer dar esses print aqui
+        //printf("\nPos: %s | Valor: %s", j, senhaInversa[j]);
+        //printf("\nPos: %s | Valor: %s", i, senha[i]);
+
         j--;
     }
 
