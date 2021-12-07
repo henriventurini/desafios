@@ -11,9 +11,20 @@
 int main(){
 
     int valid = 0;
+    int ok = 1;
+    int qtdDic;
+    char dic[50][20];
     char senha[50];
     char ponteiro;
 
+    printf("Entre com a quantidade de palvras no dicionario: ");
+    scanf("%d", &qtdDic);
+
+    printf("Entre com as palvras do dicionario: ");
+    for (int i = 0; i < qtdDic; i++)
+    {
+        scanf("%s", &dic[i]);
+    }
     printf("Entre com a senha : ");
     scanf("%s", &senha);
 
@@ -32,6 +43,7 @@ int main(){
         }
     }
     if(valid == 0){
+        ok = 0;
         printf("A senha deve conter pelo menos um caracter maiusculo\n");
     }else{
         valid = 0;
@@ -47,6 +59,7 @@ int main(){
         }
     }
     if(valid == 0){
+         ok = 0;
         printf("A senha deve conter pelo menos um caracter minusculo\n");
     }else{
         valid = 0;
@@ -62,6 +75,7 @@ int main(){
         }
     }
     if(valid == 0){
+        ok = 0;
         printf("A senha deve conter pelo menos um numero\n");
     }else{
         valid = 0;
@@ -77,6 +91,7 @@ int main(){
         }
     }
     if(valid == 0){
+        ok = 0;
         printf("A senha deve conter pelo menos um caracter especial (! ? # @ $)\n");
     }else{
         valid = 0;
@@ -84,20 +99,46 @@ int main(){
 
     // Verifica se eh um palindromo
     char senhaInversa[strlen(senha)];
-    int j = strlen(senha) - 1;
-
-    for(int i = 0; i < strlen(senha); i++){
-        senhaInversa[j] = senha[i];
-        
-        // Nao sei porque mas nao quer dar esses print aqui
-        //printf("\nPos: %s | Valor: %s", j, senhaInversa[j]);
-        //printf("\nPos: %s | Valor: %s", i, senha[i]);
-
-        j--;
+    for(int i = 0,j = strlen(senha) - 1; i < strlen(senha); i++,j--){
+        senhaInversa[i] = senha[j];
     }
-
-    printf("\nSenha: %s", senha);
-    printf("\nSenha Inversa: %s", senhaInversa);
-    printf("\nTamanho da String: %d", strlen(senha));
+    int igualPalin = 1;
+    for (int i = 0; i < strlen(senha); i++)
+    {
+       if(senhaInversa[i] != senha[i]){
+           igualPalin = 0;
+           break;
+       }
+    }
+    if(igualPalin){
+        ok = 0;
+        printf("E um palindromo\n");
+    }
+    int igualSubString = 0;
+    char senhaMin[50];
+    for (int i = 0; i < strlen(senha); i++)
+    {
+        senhaMin[i] = tolower(senha[i]);
+    }
+    
+    for (int i = 0; i < qtdDic; i++)
+    {
+        char dicMin[20];
+        for (int j = 0; j < strlen(dic[i]-1); j++)
+        {
+            dicMin[j] = tolower(dic[i][j]);
+        }
+        if(strstr(senhaMin,dicMin) != 0){
+           igualSubString = 1; 
+        }
+    }
+    if(igualSubString){
+        ok = 0;
+        printf("A senha nao pode conter palavras reservadas\n");
+    }
+    if(ok){
+        printf("\nOk");
+    }
+    
 
 }
