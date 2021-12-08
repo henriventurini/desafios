@@ -10,6 +10,7 @@
 
 int main(){
 
+    // Criacao das variaveis
     int valid = 0;
     int ok = 1;
     int qtdDic;
@@ -17,10 +18,10 @@ int main(){
     char senha[50];
     char ponteiro;
 
-    printf("Entre com a quantidade de palvras no dicionario: ");
+    printf("Entre com a quantidade de palavras no dicionario: ");
     scanf("%d", &qtdDic);
 
-    printf("Entre com as palvras do dicionario: ");
+    printf("Entre com as palavras do dicionario: ");
     for (int i = 0; i < qtdDic; i++)
     {
         scanf("%s", &dic[i]);
@@ -112,8 +113,10 @@ int main(){
     }
     if(igualPalin){
         ok = 0;
-        printf("E um palindromo\n");
+        printf("A senha nao pode ser um palindromo\n");
     }
+
+    // Verifica se a palavra contem no dicionario
     int igualSubString = 0;
     char senhaMin[50];
     for (int i = 0; i < strlen(senha); i++)
