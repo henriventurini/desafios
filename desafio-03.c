@@ -1,8 +1,9 @@
-/*****************************************************************************************************
-* Recebe palavras de um dicionario e depois uma senha, avalia a senha com base no exigido            *
-* Criado por: Henri Boraschi Venturini (RA 2760482121027) e Pedro Henrique Vieira (RA 2760482121022) *
-* Data: 04-12-2021                                                                                   *
-******************************************************************************************************/
+/*******************************************************************************************************
+* Recebe palavras de um dicionario e depois uma senha, avalia a senha com base nos criterios exigidos  *
+* Criado por: Henri Boraschi Venturini (RA 2760482121027), Pedro Henrique Vieira (RA 2760482121022),   *
+* Beatriz Rodrigues de Souza (RA 2760482121032) e Lucas Guilherme Rodrigues Santana (RA 2760482121004) *
+* Data: 04-12-2021                                                                                     *
+********************************************************************************************************/
 
 #include <stdio.h>
 #include <string.h>
